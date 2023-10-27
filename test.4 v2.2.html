@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bilderwechsler mit weichen Übergängen</title>
+    <style>
+        /* Stil für den Body, um den Hintergrund schwarz zu machen und das Zentrieren zu ermöglichen */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        /* Stil für den Bildcontainer */
+        .bild-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9-Verhältnis = 9 / 16 * 100% */
+            overflow: hidden; /* Verhindert das Scrollen des Bildes */
+        }
+        
+        /* Stil für das Bild innerhalb des Containers */
+        .bild-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* Übergangseffekt mit 1 Sekunde Dauer */
+        }
+        
+        /* Klasse, um das aktive Bild einzublenden */
+        .bild-container img.active {
+            opacity: 1;
+        }
+    </style>
+    <script>
+        // Array mit den Bild-Dateinamen
+        var bilder = ['bild1.jpg', 'bild2.jpg', 'bild3.jpg', 'bild4.jpg', 'bild5.jpg', 'bild6.jpg', 'bild7.jpg', 'bild8.jpg', 'bild9.jpg', 'bild10.jpg', 'bild11.jpg', 'bild12.jpg', 'bild13.jpg', 'bild14.jpg', 'bild15.jpg', 'bild16.jpg', 'bild17.jpg', 'bild18.jpg', 'bild19.jpg', 'bild20.jpg', 'bild21.jpg', 'bild22.jpg', 'bild23.jpg', 'bild24.jpg', 'bild25.jpg', 'bild26.jpg', 'bild27.jpg', 'bild28.jpg', 'bild29.jpg', 'bild30.jpg', 'bild31.jpg', 'bild32.jpg', 'bild33.jpg', 'bild34.jpg', 'bild35.jpg'];
+        
+        // Index des aktuellen Bildes
+        var aktuellesBildIndex = 0;
+        
+        // Funktion, um das nächste Bild anzuzeigen
+        function naechstesBild() {
+            var bildElement = document.getElementById("bild");
+            bildElement.classList.remove("active"); // Klassenwechsel vor dem Übergang
+            setTimeout(function () {
+                bildElement.src = bilder[aktuellesBildIndex];
+                aktuellesBildIndex = (aktuellesBildIndex + 1) % bilder.length;
+                bildElement.classList.add("active"); // Klassenwechsel nach dem Übergang
+            }, 1000); // 1 Sekunde Verzögerung, um den Übergangseffekt zu ermöglichen
+        }
+        
+        // Funktion, um den Wechsel der Bilder nach einer bestimmten Zeit zu starten
+        function startBilderwechsel() {
+            setInterval(naechstesBild, 25000); // 5000 Millisekunden = 5 Sekunden
+        }
+    </script>
+</head>
+<body onload="startBilderwechsel()">
+    <div class="bild-container">
+        <img id="bild" src="bild1.jpg" alt="Bild" class="active">
+    </div>
+</body>
+</html>

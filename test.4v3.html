@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bilderwechsler mit weichen Übergängen</title>
+    <style>
+         /* Stil für den Body, um den Hintergrund schwarz zu machen und das Zentrieren zu ermöglichen */
+         body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        /* Stil für den Bildcontainer mit 16:10-Verhältnis */
+        .bild-container {
+            position: relative;
+            width: 100%;
+            padding-top: 62.5%; /* 16:10-Verhältnis = 10 / 16 * 100% */
+            overflow: hidden; /* Verhindert das Scrollen des Bildes */
+}
+        
+        /* Stil für das Bild innerhalb des Containers */
+        .bild-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 2000ms ease-in-out; /* Übergangseffekt mit 1 Sekunde Dauer */
+        }
+        
+        /* Klasse, um das aktive Bild einzublenden */
+        .bild-container img.active {
+            opacity: 1;
+        }
+    </style>
+    <script>
+        // Anzahl der Bilder, die du haben möchtest
+        var anzahlBilder = 39;
+
+        // Array mit den Bild-Dateinamen
+        var bilder = [];
+
+        // Schleife, um die Bild-Dateinamen hinzuzufügen
+        for (var i = 1; i <= anzahlBilder; i++) {
+            bilder.push('bilder/bild' + i + '.jpg');
+        }
+
+        // Index des aktuellen Bildes
+        var aktuellesBildIndex = 0;
+
+        // Funktion, um ein zufälliges Bild auszuwählen
+        function zufaelligesBild() {
+            return Math.floor(Math.random() * bilder.length);
+        }
+
+        // Funktion, um das nächste Bild anzuzeigen
+        function naechstesBild() {
+            var bildElement = document.getElementById("bild");
+            bildElement.classList.remove("active"); // Klassenwechsel vor dem Übergang
+
+            setTimeout(function () {
+                aktuellesBildIndex = zufaelligesBild();
+                bildElement.src = bilder[aktuellesBildIndex];
+                bildElement.classList.add("active"); // Klassenwechsel nach dem Übergang
+            }, 1000); // 1 Sekunde Verzögerung, um den Übergangseffekt zu ermöglichen
+        }
+
+        // Funktion, um den Wechsel der Bilder nach einer bestimmten Zeit zu starten
+        function startBilderwechsel() {
+            setInterval(naechstesBild, 15000); // 25000 Millisekunden = 25 Sekunden
+        }
+
+    </script>
+</head>
+<body onload="startBilderwechsel()">
+    <div class="bild-container">
+        <img id="bild" src="bilder/bild1.jpg" alt="Bild" class="active">
+    </div>
+</body>
+</html>
+

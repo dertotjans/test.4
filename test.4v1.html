@@ -1,0 +1,59 @@
+<HEAD>
+    <SCRIPT LANGUAGE="JavaScript">
+        <!-- Begin
+        // Set slideShowSpeed (milliseconds)
+        var slideShowSpeed = 5000;
+        // Duration of crossfade (seconds)
+        var crossFadeDuration = 3;
+        // Specify the image files
+        var Pic = new Array();
+        // to add more images, just continue
+        // the pattern, adding to the array below
+        
+        Pic[0] = 'bild1.jpg'
+        Pic[1] = 'bild2.jpg'
+        Pic[2] = 'bild3.jpg'
+        Pic[3] = 'bild4.jpg'
+        Pic[4] = 'bild5.jpg'
+        Pic[5] = 'bild6.jpg'
+        Pic[6] = 'bild7.jpg'
+        Pic[7] = 'bild8.jpg'
+        Pic[8] = 'bild9.jpg'
+        Pic[9] = 'bild10.jpg'
+        Pic[10]= 'bild11.jpg'
+        // do not edit anything below this line
+        var t;
+        var j = 0;
+        var p = Pic.length;
+        var preLoad = new Array();
+        for (i = 0; i < p; i++) {
+        preLoad = new Image();
+        preLoad.src = Pic;
+        }
+        function runSlideShow() {
+        if (document.all) {
+        document.images.SlideShow.style.filter="blendTrans(duration=2)";
+        document.images.SlideShow.style.filter="blendTrans(duration=crossFadeDuration)";
+        document.images.SlideShow.filters.blendTrans.Apply();
+        }
+        document.images.SlideShow.src = preLoad[j].src;
+        if (document.all) {
+        document.images.SlideShow.filters.blendTrans.Play();
+        }
+        j = j + 1;
+        if (j > (p - 1)) j = 0;
+        t = setTimeout('runSlideShow()', slideShowSpeed);
+        }
+        // End -->
+        </script>
+</HEAD>
+
+<BODY onLoad="runSlideShow()" >
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+        <td id="VU" height=150 width=150>
+        <img src="1.jpg" name='SlideShow' >
+        </td>
+        </tr>
+    </table>
+</BODY>
